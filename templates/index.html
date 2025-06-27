@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoultryDetect - Poultry Health Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">PoultryDetect</h1>
+            <nav>
+                <ul>
+                    <li><a href="/" class="active">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="/predict">Detect</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Welcome to Poultry Health Hub</h2>
+                <p>Your comprehensive resource for poultry disease management and prevention.</p>
+                <a href="/predict" class="btn">GET STARTED</a>
+            </div>
+            <div class="hero-image">
+                <img src="{{ url_for('static', filename='images/hen1.jpg') }}" alt="Healthy poultry">
+            </div>
+        </div>
+    </section>
+
+    <!-- Previous code remains the same until diseases section -->
+
+<section class="diseases">
+    <div class="container">
+        <h3>Common Poultry Diseases</h3>
+        <div class="disease-grid">
+            <div class="disease-card">
+                <img src="{{ url_for('static', filename='images/coccidiosis.jpg') }}" alt="Coccidiosis">
+                <div class="disease-info">
+                    <h4>Coccidiosis</h4>
+                    <p>A parasitic disease of the intestinal tract that can cause bloody diarrhea and weight loss in poultry.</p>
+                </div>
+            </div>
+            <div class="disease-card">
+                <img src="{{ url_for('static', filename='images/newcastle.jpg') }}" alt="Newcastle Disease">
+                <div class="disease-info">
+                    <h4>Newcastle Disease</h4>
+                    <p>A highly contagious viral disease that affects respiratory, nervous, and digestive systems of birds.</p>
+                </div>
+            </div>
+            <div class="disease-card">
+                <img src="{{ url_for('static', filename='images/salmonella.jpg') }}" alt="Salmonella">
+                <div class="disease-info">
+                    <h4>Salmonella</h4>
+                    <p>A bacterial infection that causes digestive problems and can be transmitted to humans through poultry products.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer with updated year -->
+<footer>
+    <div class="container">
+        <p>&copy; 2025 PoultryDetect. All rights reserved.</p>
+    </div>
+</footer>

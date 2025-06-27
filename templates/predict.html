@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Detection - PoultryDetect</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">PoultryDetect</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="/predict" class="active">Detect</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="prediction-page">
+        <div class="container">
+            <h2>Poultry Disease Detection</h2>
+            <p class="subtitle">Upload an image of your poultry to detect potential diseases</p>
+            
+            <div class="prediction-container">
+                <div class="upload-section">
+    <form method="POST" action="/predict" enctype="multipart/form-data" class="upload-form">
+        <div class="file-upload-wrapper">
+            <label for="poultry-image" class="file-upload-label">
+                <div class="file-upload-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="upload-icon">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <span class="upload-text">Choose an image file</span>
+                    <span class="file-name" id="file-name">No file chosen</span>
+                </div>
+                <input type="file" id="poultry-image" name="poultry_image" accept="image/*" required>
+            </label>
+        </div>
+        <p class="file-info">Supported formats: JPG, PNG, JPEG (Max 5MB)</p>
+        <button type="submit" class="btn predict-btn">Detect Disease</button>
+    </form>
+</div>
+                
+                {% if error %}
+                <div class="error-message">
+                    {{ error }}
+                </div>
+                {% endif %}
+                
+                {% if prediction %}
+                <div class="result-section">
+                    <div class="result-card">
+                        <h3>Detection Result</h3>
+                        <div class="result-content">
+                            <div class="result-image">
+                                {% if image_path %}
+                                <img src="{{ url_for('static', filename='uploads/' + image_path.split('/')[-1]) }}" alt="Uploaded poultry image">
+                                {% else %}
+                                <div class="image-placeholder">
+                                    <img src="{{ url_for('static', filename='images/hen-placeholder.jpg') }}" alt="Poultry placeholder">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="result-details">
+                                <h4>The infection type detected as:</h4>
+                                <div class="disease-result">
+                                    <span class="disease-name">{{ prediction }}</span>
+                                    <span class="confidence">Confidence: {{ confidence }}</span>
+                                </div>
+                                <div class="disease-info">
+                                    <p>{{ info }}</p>
+                                </div>
+                                <a href="/predict" class="btn try-again">Try Another Image</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 PoultryDetect. All rights reserved.</p>
+        </div>
+    </footer>
+
+   <script>
+    document.getElementById('poultry-image').addEventListener('change', function(e) {
+        const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+        document.getElementById('file-name').textContent = fileName;
+        
+        // Preview the image if you want
+        if (e.target.files && e.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                // You could show a preview here if desired
+                // document.getElementById('image-preview').src = event.target.result;
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+</script>
+</body>
+</html>
